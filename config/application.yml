@@ -1,0 +1,11 @@
+fxfeed:
+    topicPrefix : demo/MD/D20/FX/
+    publishInterval : 1
+    feedPollingInterval : 60
+    
+solace:
+    java:
+        host : 192.168.56.101:55555
+        msgVpn : default
+        clientUsername : default
+        clientPassword : 

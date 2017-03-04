@@ -1,0 +1,73 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.1.RELEASE'
+        solaceJCSMPVersion = '10.+'	
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'distribution'
+
+version = '0.1.0'
+
+jar {
+    baseName = 'sample-fx-feed-generator-bin'
+    version =  version
+}
+
+def distributionsCopySpec = copySpec {
+    into("$name-$version") {
+        from(libsDir) {
+            include '*.jar' //copy the fat jar created by bootRepackage
+        }
+        from 'README.md'
+        from 'LICENSE'
+        into('config') {
+            from 'config'
+        }
+    }
+}
+
+task fatJarZip(type: Zip, dependsOn: 'bootRepackage') { with distributionsCopySpec }
+task fatJarTar(type: Tar, dependsOn: 'bootRepackage') { with distributionsCopySpec }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    mavenCentral()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+	// Spring Boot framework
+	compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+	
+	// Solace Java API
+    compile("com.solacesystems:sol-jcsmp:${solaceJCSMPVersion}")
+    // Solace Java API & auto-configuration
+	compile("com.solace.labs.spring.boot:solace-java-spring-boot-starter:0.1.2")
+	
+	// JSON
+	compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
+    runtime 'org.glassfish:javax.json:1.0.4'
+    
+    // The production code uses the SLF4J logging API at compile time
+    compile 'org.slf4j:slf4j-api:1.7.21'
+
+    // Declare the dependency for your favourite test framework you want to use in your tests.
+    // TestNG is also supported by the Gradle Test task. Just change the
+    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
+    // 'test.useTestNG()' to your build script.
+    testCompile 'junit:junit:4.12'
+}
