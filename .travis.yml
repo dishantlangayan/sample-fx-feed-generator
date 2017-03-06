@@ -2,13 +2,20 @@ language: java
 jdk:
 - oraclejdk8
 install: true
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 script:
 - ./gradlew clean fatJarZip
 deploy:
   provider: releases
   api_key:
     secure: JCIoNwgO28GnCyFZzpv5+uTOsB7sq7JHx9URzSb+/eeAmp/O0JKESkhrnZ7pHEKQs7Q0hz3Ys07hd++mpATcg04V4MFN7VG91npAWZcY7coXk3vMCaCn0f3IRHO83/J5L6dACx6UOVueqyYfnZ+duaaoJmj4TVUCwtt1Dt66M+q/wfkAIb7nQXwgdfUy9rrwVlQKCk1oYAjCWNRHl9RQKL/+FOGoyaxY1zLWSE8vVR/oVtWpdOjcpq9TjdfKj30ECwo5kHXF/2SRRiUcDOwELXmXhfmhTJRPfuOnXHhh3y3znKAPq0r2BU1eM4Pd07d8UTkVmnQnX4iBiI4MgNlrpPTShTAvihpVoME6cxNbVBXGJpWaK4O7HP/NyfJ03XIDIocyIexem3Yb8Jqj60AU77qZ6eUsmjVKm8cGNp1C+tIES9w3AgYQCdcx4Xjv2VoKACwy9e8ykzUwKaa5uOD++lQ6CgZW+TC2ZgPsFEghGryXfNGtvigBaqLom4DJEbaf8Cd4Ue0rUTYL5qJFlXvAcgGTQuziRDfYZqMQjta/eH1f5iZaQRKfen66NPukelHTbmSWa2B1ariByx6BHQqHHp0JUR5+7eNnoWCjvMvPqghZxywmEagzMt1jMhWYzrUnNcKUnzZ6hBrg8EEYc2QViFkVjz6D9PgcJGti50ladlM=
-  file: build/distributions/sample-fx-feed-generator-*.zip
+  file: ./build/distributions/*
   skip_cleanup: true
   on:
     tag: true

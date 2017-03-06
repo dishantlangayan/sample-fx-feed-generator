@@ -1,7 +1,7 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.1.RELEASE'
-        solaceJCSMPVersion = '10.+'	
+    ext {
+        springBootVersion = '1.5.1.RELEASE'
+        solaceJCSMPVersion = '10.+' 
     }
     repositories {
         mavenCentral()
@@ -50,16 +50,16 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-	// Spring Boot framework
-	compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-	
-	// Solace Java API
+    // Spring Boot framework
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    
+    // Solace Java API
     compile("com.solacesystems:sol-jcsmp:${solaceJCSMPVersion}")
     // Solace Java API & auto-configuration
-	compile("com.solace.labs.spring.boot:solace-java-spring-boot-starter:0.1.2")
-	
-	// JSON
-	compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
+    compile("com.solace.labs.spring.boot:solace-java-spring-boot-starter:0.1.2")
+    
+    // JSON
+    compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
     runtime 'org.glassfish:javax.json:1.0.4'
     
     // The production code uses the SLF4J logging API at compile time
