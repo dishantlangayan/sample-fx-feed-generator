@@ -19,4 +19,4 @@ deploy:
   file: "build/distributions/*.zip"
   skip_cleanup: true
   on:
-    tag: true
+    tags: true
