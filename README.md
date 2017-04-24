@@ -1,3 +1,5 @@
+![alt text](https://travis-ci.org/dishantlangayan/sample-fx-feed-generator.svg?branch=master "Build Status")
+
 Sample FX Feed Generator README
 ====================
 
